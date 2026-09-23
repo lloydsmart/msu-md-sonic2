@@ -455,7 +455,7 @@ GameMode_Demo:		bra.w	Level			; Demo mode
 GameMode_Level:		bra.w	Level			; Zone play mode
 GameMode_SpecialStage:	bra.w	SpecialStage		; Special stage play mode
 GameMode_ContinueScreen:bra.w	ContinueScreen		; Continue mode
-GameMode_2PResults:	jsr	TwoPlayerResults	; 2P results mode
+GameMode_2PResults:	bra.w	JmpTo_TwoPlayerResults	; 2P results mode
 GameMode_2PLevelSelect:	bra.w	LevelSelectMenu2P	; 2P level select mode
 GameMode_EndingSequence:bra.w	JmpTo_EndingSequence	; End sequence mode
 GameMode_OptionsMenu:	bra.w	OptionsMenu		; Options mode
@@ -493,6 +493,10 @@ OptionsMenu: ;;
 ; loc_402:
 LevelSelectMenu: ;;
 	jmp	(MenuScreen).l
+
+; Keep game-mode dispatch entries four bytes wide and preserve the tail call.
+JmpTo_TwoPlayerResults:
+	jmp	(TwoPlayerResults).l
 ; ===========================================================================
 
 ; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
